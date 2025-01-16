@@ -4,6 +4,16 @@
 
 The project focuses on extracting data from CoinCap's public API, transforming the data, and storing it in a data lake and a Postgres database.
 
+The tables created in the database are "Assets", "Exchanges" and "Markets".
+
+"Assets" is a table that contains information about cryptocurrencies
+
+"Exchanges" is a table that contains information about brokers that trade cryptocurrencies present in Assets
+
+"Markets" is a table that contains information about brokers' trades, in the exchange between two assets.
+
+In this way, the Markets table references an exchange and 2 assets. And the code structure is made to guarantee integrity
+
 The project is powered by Docker, which is required to run it. And to check the updates made to the database, it is recommended to use PgAdmin.
 
 If you have any questions about the API, the official documentation is at https://docs.coincap.io/
