@@ -1,0 +1,43 @@
+version: '3'
+services:
+  jupyter:
+    image: jupyter/base-notebook
+    container_name: jupyter_lake
+    ports: 
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - ./requirements.txt:/tmp/requirements.txt
+      - ./data:/home/jovyan/data
+    environment:
+      - GRANT_SUDO=yes
+      - JUPYTER_ENABLE_LAB=yes
+      - API_URI=${API_URI}
+      - API_KEY=${API_KEY}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - DB_URI=${DB_URI}
+      - DB_PORT=${DB_PORT}
+    depends_on:
+      - postgres
+    entrypoint: >
+      /bin/bash -c "pip install -r /tmp/requirements.txt &&
+      start-notebook.sh --NotebookApp.token=''"
+    
+    
+  
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+volumes:
+  postgres_data:
