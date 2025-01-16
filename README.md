@@ -17,6 +17,12 @@ To run the project, you need to clone the repository
   git clone https://github.com/vitor-pelicer/CoinCapLake
 ```
 
+go to the cloned directory
+
+```bash
+  cd CoinCapLake
+```
+
 Create a ".env" file for your repository
 
 Add your credentials to the environment variables, I will leave a template for you to follow.
@@ -37,9 +43,11 @@ API_KEY=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 Start containers with docker
 
 ```bash
-  docker compose up
+  docker-compose -f ./dockercompose.yml up
 ```
 
 Open jupyter interface at http://localhost:8888/
 
 Open the notebook "coincap_ingestion.ipynb" and run the code cells
+
+If there is an error, check if the environment variables in the ".env" file are active. If not, try rewriting the file, stopping the containers and running docker-compose up again.
